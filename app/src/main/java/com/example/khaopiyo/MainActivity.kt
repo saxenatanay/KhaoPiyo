@@ -36,7 +36,7 @@ class MainActivity : ComponentActivity() {
 @Composable
 fun Greeting(name: String, modifier: Modifier = Modifier) {
     Text(
-        text = "Hello $name!",
+        text = "Hello $name! Nice To Meet You, Hope you are enjoying github",
         modifier = modifier,
         color = Color.Magenta,
         fontSize = 34.sp
