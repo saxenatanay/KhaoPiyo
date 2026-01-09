@@ -10,6 +10,7 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Scaffold
+import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
@@ -26,43 +27,21 @@ import com.example.khaopiyo.ui.theme.white
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        enableEdgeToEdge()
+
         setContent {
             KhaoPiyoTheme {
-                Scaffold(modifier = Modifier.fillMaxSize()) { innerPadding ->
-                    Column(
-                        modifier = Modifier.padding(innerPadding)
-                            .background(DeepPurpleA100)
-                            .fillMaxSize()
-                    ) {
-                        Greeting(
-                            name = "Tanay",
-                            modifier = Modifier
-                        )
-                    }
+                Surface {
+                    LoginScreen(
+                        onLoginClick = { email, password ->
+                            // TODO: login logic
+                            println("Email: $email, Password: $password")
+                        },
+                        onSignupClick = {
+                            // TODO: navigate to signup screen
+                        }
+                    )
                 }
             }
         }
-    }
-}
-
-@Composable
-fun Greeting(name: String, modifier: Modifier = Modifier) {
-    Text(
-        text = "Hello $name!",
-        color = white,
-        modifier = modifier,
-        fontSize = 34.sp,
-        fontFamily = PoppinsFontFamily,
-        fontStyle = FontStyle.Italic,
-        fontWeight = FontWeight.Bold
-    )
-}
-
-@Preview(showBackground = true)
-@Composable
-fun GreetingPreview() {
-    KhaoPiyoTheme {
-        Greeting("Tanay")
     }
 }
