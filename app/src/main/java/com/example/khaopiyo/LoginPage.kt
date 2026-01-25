@@ -11,13 +11,15 @@ import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Brush
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.text.input.VisualTransformation
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.navigation.compose.*
 import com.example.khaopiyo.ui.theme.*
+
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -90,10 +92,11 @@ fun LoginScreen(
                     leadingIcon = {
                         Icon(Icons.Default.Lock, contentDescription = null)
                     },
-                    visualTransformation = if (passwordVisible)
-                        VisualTransformation.None
-                    else
-                        PasswordVisualTransformation(),
+                    visualTransformation =
+                        if (passwordVisible)
+                            VisualTransformation.None
+                        else
+                            PasswordVisualTransformation(),
                     trailingIcon = {
                         TextButton(onClick = { passwordVisible = !passwordVisible }) {
                             Text(if (passwordVisible) "Hide" else "Show")
@@ -125,6 +128,35 @@ fun LoginScreen(
     }
 }
 
+/* NAVIGATION */
+
+@Composable
+fun AppNavigation() {
+    val navController = rememberNavController()
+
+    NavHost(
+        navController = navController,
+        startDestination = "login"
+    ) {
+        composable("login") {
+            LoginScreen(
+                onLoginClick = { _, _ ->
+                    navController.navigate("home") {
+                        popUpTo("login") { inclusive = true }
+                    }
+                }
+            )
+        }
+
+        composable("home") {
+            HomeScreen()
+        }
+    }
+}
+
+/* PREVIEW */
+
+@Preview(showBackground = true)
 @Composable
 fun LoginPreview() {
     MaterialTheme {
